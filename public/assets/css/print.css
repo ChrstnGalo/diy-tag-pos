@@ -1,0 +1,68 @@
+.company-logo {
+  margin: 0;
+}
+
+.customer-service {
+  margin-top: -10px;
+}
+
+.receipt-header {
+  margin: 0;
+  font-size: 20px;
+}
+
+.receipt-subheader {
+  margin-top: -10px;
+  font-size: 25px;
+}
+
+.address {
+  margin-top: -5px;
+  font-size: 12px;
+}
+
+.cashier-receipt {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 5px;
+}
+
+.container {
+  text-align: center;
+}
+
+.MOP{
+
+  margin-top: -5px;
+}
+
+.cashier-receipt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.cashier-container,
+.receipt-no-container {
+  margin-right: 10px; 
+}
+
+.cashier {
+  margin: 0;
+}
+
+.receipt-no {
+  margin-top: 5px;
+}
+
+.total-quantity {
+  font-size: 10px;
+}
+
+.table {
+  margin-bottom: 10px;
+}
+
+.center-text {
+  text-align: center;
+}
