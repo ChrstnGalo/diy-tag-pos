@@ -8,13 +8,13 @@ $DBDRIVER = "mysql";
 
 $conn = new mysqli($DBHOST, $DBUSER, $DBPASS, $DBNAME);
 
-// Check connection
+// Check the connection
 if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error);
 }
 
-// Query para kunin ang mga record na may discount na equal sa 0
-$sql = "SELECT description, qty, amount, image FROM products WHERE discount = 0";
+// Query para kunin ang mga record na may hindi 0 na halaga sa field ng discount
+$sql = "SELECT description, qty, amount, image, discounted_price FROM products WHERE discount <> 0";
 
 $result = $conn->query($sql);
 
@@ -23,16 +23,8 @@ if ($result->num_rows > 0) {
     $response = array();
 
     while ($row = $result->fetch_assoc()) {
-        // Gumawa ng bagong associative array na maglalaman ng mga detalye ng produkto
-        $productDetails = array(
-            'description' => $row['description'],
-            'qty' => $row['qty'],
-            'amount' => $row['amount'],
-            'image' => $row['image']
-        );
-
-        // Idagdag ang bawat detalye ng produkto sa response array
-        $response[] = $productDetails;
+        // Idagdag ang bawat row sa response array
+        $response[] = $row;
     }
 
     // I-echo ang response array bilang JSON

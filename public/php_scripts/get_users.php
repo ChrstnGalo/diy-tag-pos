@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 }
 
 // Kumonekta sa database at kumuha ng mga users
-$result = $conn->query("SELECT id, email, password, username, date, role, image, gender, balance FROM users");
+$result = $conn->query("SELECT id, email, password, username, date, role, image, gender, balance, qr_image FROM users");
 
 if ($result->num_rows > 0) {
     // I-iterate ang result at ilagay sa isang array
@@ -30,3 +30,4 @@ echo json_encode($users);
 
 // Isara ang koneksyon
 $conn->close();
+?>
