@@ -1,40 +1,66 @@
- <?php
+<?php
 
-    defined("ABSPATH") ? "" : die();
+defined("ABSPATH") ? "" : die();
 
-    //capture ajax data
-    $raw_data = file_get_contents("php://input");
-    if (!empty($raw_data)) {
+//capture ajax data
+$raw_data = file_get_contents("php://input");
+if (!empty($raw_data)) {
 
-        $OBJ = json_decode($raw_data, true);
-        if (is_array($OBJ)) {
-            if ($OBJ['data_type'] == "search") {
-                $productClass = new Product();
-                $limit = 20;
+    $OBJ = json_decode($raw_data, true);
+    if (is_array($OBJ)) {
+        if ($OBJ['data_type'] == "search") {
 
+            $productClass = new Product();
+            $limit = 20;
+
+            if (!empty($OBJ['text'])) {
+                //search
+                $barcode = $OBJ['text'];
                 $text = "%" . $OBJ['text'] . "%";
-                $category = isset($OBJ['category']) ? $OBJ['category'] : ''; // Retrieve the category from the request
+                $query = "select * from products where description like :find || barcode = :barcode order by views desc limit $limit";
+                $rows = $productClass->query($query, ['find' => $text, 'barcode' => $barcode]);
+            } else {
+                //get all
+                //$limit = 10,$offset = 0,$order = "desc",$order_column = "id"
+                $rows = $productClass->getAll($limit, 0, 'desc', 'views');
+            }
 
-                // Modify the query to include the category filter
-                $query = "SELECT * FROM products WHERE description LIKE :find AND category LIKE :category OR barcode = :barcode ORDER BY views DESC LIMIT $limit";
+            if ($rows) {
 
-                // Add the category parameter to the query parameters
-                $params = ['find' => $text, 'category' => "%$category%", 'barcode' => $text];
-                $rows = $productClass->query($query, $params);
+                foreach ($rows as $key => $row) {
 
-                if ($rows) {
-                    foreach ($rows as $key => $row) {
-                        $rows[$key]['description'] = strtoupper($row['description']);
-                        $rows[$key]['image'] = crop($row['image']);
-                    }
-
-                    $info['data_type'] = "search";
-                    $info['data'] = $rows;
-                    echo json_encode($info);
+                    $rows[$key]['description'] = strtoupper($row['description']);
+                    $rows[$key]['image'] = crop($row['image']);
                 }
+
+                $info['data_type'] = "search";
+                $info['data'] = $rows;
+
+                echo json_encode($info);
+            }
+        } elseif ($OBJ['data_type'] == "filter") {
+            $category = $OBJ['category'];
+
+            $productClass = new Product();
+            $limit = 20;
+
+            // Modify the query to filter by category
+            $query = "SELECT * FROM products WHERE category = :category ORDER BY views DESC LIMIT $limit";
+            $rows = $productClass->query($query, ['category' => $category]);
+
+            if ($rows) {
+                foreach ($rows as $key => $row) {
+                    $rows[$key]['description'] = strtoupper($row['description']);
+                    $rows[$key]['image'] = crop($row['image']);
+                }
+
+                $info['data_type'] = "search";
+                $info['data'] = $rows;
+
+                echo json_encode($info);
             }
         } else
-            if ($OBJ['data_type'] == "checkout") {
+        if ($OBJ['data_type'] == "checkout") {
             $data = $OBJ['text'];
             $sale = new Sale();
             $receipt_no = $sale->generateReceiptNumber();
@@ -55,8 +81,6 @@
                 $arr['id'] = $row['id'];
                 $query = "SELECT * FROM products WHERE id = :id LIMIT 1";
                 $check = $db->query($query, $arr);
-                $productClass = new Product();
-                $productClass->updateQuantity($row['id'], $row['qty']);
 
                 if (is_array($check)) {
                     $check = $check[0];
@@ -117,3 +141,4 @@
             echo json_encode($info);
         }
     }
+}

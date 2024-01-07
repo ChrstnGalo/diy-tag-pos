@@ -1,8 +1,5 @@
 <?php require views_path('partials/header'); ?>
-<style>
 
-
-</style>
 <div class="d-flex">
 	<div style="min-height:600px;" class="shadow-sm col-8 p-4">
 
@@ -13,24 +10,12 @@
 			<span class="input-group-text " id="basic-addon1"><i class="fa-solid fa-barcode"></i></i></span>
 		</div>
 		<center>
-			<button class="category-list" type="button" onclick="search_item(event, 'Canned Goods')">
-				<i class="fa-solid fa-box-archive"></i>Canned Goods
-			</button>
-			<button class="category-list" type="button" onclick="search_item(event, 'Condiments & Spices')">
-				<i class="fa-solid fa-mortar-pestle"></i>Condiments & Spices
-			</button>
-			<button class="category-list" type="button" onclick="search_item(event, 'Dairy')">
-				<i class="fa-solid fa-cow"></i>Dairy
-			</button>
-			<button class="category-list" type="button" onclick="search_item(event, 'Snacks')">
-				<i class="fa-solid fa-cookie-bite"></i>Snacks
-				<button class="category-list" type="button" onclick="search_item(event, 'Beverages')">
-					<i class="fa-solid fa-wine-bottle"></i>Beverages
-				</button>
-				<button class="category-list" type="button" onclick="search_item(event, 'Personal Care')">
-					<i class="fa-solid fa-hand-holding-medical"></i>Personal Care
-				</button>
-
+			<button class="category-list" type="button" onclick="filterProducts('Canned Goods')"><i class="fa-solid fa-box-archive"></i>Canned Goods</button>
+			<button class="category-list" type="button" onclick="filterProducts('Condiments & Spices')"><i class="fa-solid fa-mortar-pestle"></i>Condiments & Spices</button>
+			<button class="category-list" type="button" onclick="filterProducts('Dairy')"><i class="fa-solid fa-egg"></i>Dairy</button>
+			<button class="category-list" type="button" onclick="filterProducts('Snacks')"><i class="fa-solid fa-cookie-bite"></i>Snacks</button>
+			<button class="category-list" type="button" onclick="filterProducts('Beverages')"><i class="fa-solid fa-wine-bottle"></i>Beverages</button>
+			<button class="category-list" type="button" onclick="filterProducts('Personal Care')"><i class="fa-solid fa-hand-holding-medical"></i>Personal Care</button>
 		</center>
 		<div onclick="add_item(event)" class="js-products d-flex text-muted" style="flex-wrap: wrap;height: 90%;overflow-y: scroll;">
 
@@ -193,16 +178,25 @@
 
 	var main_input = document.querySelector(".js-search");
 
-	function search_item(e, category) {
+	function search_item(e) {
+
 		var text = e.target.value.trim();
+
 		var data = {};
 		data.data_type = "search";
 		data.text = text;
-		data.category = category; // Pass the selected category to the server
+
 		send_data(data);
 	}
 
+	function filterProducts(category) {
+		var data = {
+			data_type: 'filter',
+			category: category
+		};
 
+		send_data(data);
+	}
 
 	function send_data(data) {
 		var ajax = new XMLHttpRequest();
