@@ -1,0 +1,106 @@
+.hide {
+    display: none;
+}
+
+@keyframes appear {
+
+    0% {
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+.category-list {
+    font-size: 17px;
+    font-family: "Readex Pro", sans-serif;
+    padding: 0.5em 2em;
+    margin: 0.25em;
+    border-radius: 0.5em;
+    border: none;
+    outline: none;
+    background: #F5CA95;
+    cursor: pointer;
+}
+
+.checkout-cancel {
+    font-size: 17px;
+    font-family: "Readex Pro", sans-serif;
+    padding: 0.5em 2em;
+    margin: 0.25em;
+    margin-right: 140px;
+    border-radius: 0.5em;
+    border: none;
+    outline: none;
+    background: #C0BC5C;
+    cursor: pointer;
+}
+
+.checkout-next {
+    font-size: 17px;
+    font-family: "Readex Pro", sans-serif;
+    padding: 0.5em 2em;
+    margin: 0.25em;
+    border-radius: 0.5em;
+    border: none;
+    outline: none;
+    background: #8BAE22;
+    cursor: pointer;
+}
+
+.checkout-qr {
+    font-size: 17px;
+    font-family: "Readex Pro", sans-serif;
+    padding: 0.5em 2em;
+    margin: 0.25em;
+    border-radius: 0.5em;
+    margin-right: 237px;
+    border: none;
+    outline: none;
+    background: #C0BC5C;
+    cursor: pointer;
+}
+
+.checkout-rfid {
+    font-size: 17px;
+    font-family: "Readex Pro", sans-serif;
+    padding: 0.5em 2em;
+    margin: 0.25em;
+    border-radius: 0.5em;
+    margin-right: 160px;
+    border: none;
+    outline: none;
+    background: #C0BC5C;
+    cursor: pointer;
+}
+
+.category-list:hover {
+    background-color: white;
+}
+
+.check {
+    background-color: #8BAE22;
+    color: black;
+
+}
+
+.clear {
+    background-color: #C0BC5C;
+    color: black;
+}
+
+.js-item-count {
+    background-color: #8BAE22;
+}
+
+.d-grid {
+    margin-top: 10px;
+}
+
+.rfid-button {
+    margin-top: -20px;
+}

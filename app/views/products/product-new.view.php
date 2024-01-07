@@ -15,6 +15,21 @@
 		</div>
 
 		<div class="mb-3">
+			<label for="exampleFormControlInput1" class="form-label">Category</label>
+			<select name="category" aria-label="Default select example" class="form-select  <?= !empty($errors['category']) ? 'border-danger' : '' ?>">
+				<option>Canned Goods</option>
+				<option>Condiments & Spices</option>
+				<option>Dairy</option>
+				<option>Snacks</option>
+				<option>Beverages</option>
+				<option>Personal Care</option>
+			</select>
+			<?php if (!empty($errors['category'])) : ?>
+				<small class="text-danger"><?= $errors['category'] ?></small>
+			<?php endif; ?>
+		</div>
+
+		<div class="mb-3">
 			<label for="barcodeControlInput1" class="form-label">Barcode <small class="text-muted">(optional)</small></label>
 			<input name="barcode" type="text" class="form-control <?= !empty($errors['barcode']) ? 'border-danger' : '' ?>" id="barcodeControlInput1" placeholder="Product barcode">
 			<?php if (!empty($errors['barcode'])) : ?>

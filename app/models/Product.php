@@ -14,6 +14,7 @@ class Product extends Model
 		'barcode',
 		'user_id',
 		'description',
+		'category',
 		'qty',
 		'amount',
 		'discount',
@@ -35,7 +36,12 @@ class Product extends Model
 			if (!preg_match('/[a-zA-Z0-9 _\-\&\(\)]+/', $data['description'])) {
 			$errors['description'] = "Only letters allowed in description";
 		}
-
+		//check category
+		if (empty($data['category'])) {
+			$errors['category'] = "Product category is required";
+		} else if (!preg_match('/^[a-zA-Z0-9 _\-\&\(\)]+$/', $data['category'])) {
+			$errors['category'] = "Only letters allowed in category";
+		}
 		//check qty
 		if (empty($data['qty'])) {
 			$errors['qty'] = "Product quantity is required";

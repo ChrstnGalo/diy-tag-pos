@@ -9,9 +9,9 @@
 }
 
 :root{
-    --bg-color:#222327;
-    --text-color: #fff;
-    --main-color: #29fd53;
+    --bg-color:#eb942b;
+    --text-color: #000;
+    --main-color: #ffffff;
 }
 
 body{
@@ -126,4 +126,3 @@ nav{
 @media (max-width: 1090px) {
   /* ... (previous media query styles) */
 }
-

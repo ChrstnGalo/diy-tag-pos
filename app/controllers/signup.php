@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $qr_image_path = $tempDir . $unique_num . '.png';
         $user->updateQrImagePath($qr_image_path, $unique_num); // Update the QR code path in the database
 
-        redirect('admin&tab=users');
+        redirect('home');
     }
 }
 
@@ -48,9 +48,6 @@ function generateUniqueToken()
     return $unique_token;
 }
 
-if (Auth::access('admin')) {
+if (Auth::access('user')) {
     require views_path('auth/signup');
-} else {
-    Auth::setMessage("Only admins can create users");
-    require views_path('auth/denied');
 }

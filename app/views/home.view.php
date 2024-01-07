@@ -1,48 +1,53 @@
 <?php require views_path('partials/header'); ?>
-
 <style>
-	.hide {
-		display: none;
-	}
 
-	@keyframes appear {
 
-		0% {
-			opacity: 0;
-			transform: translateY(-100px);
-		}
-
-		100% {
-			opacity: 1;
-			transform: translateY(0px);
-		}
-	}
 </style>
 <div class="d-flex">
-	<div style="min-height:600px;" class="shadow-sm col-7 p-4">
+	<div style="min-height:600px;" class="shadow-sm col-8 p-4">
 
-		<div class="input-group mb-3">
-			<h3> Items </h3>
-			<input onkeyup="check_for_enter_key(event)" oninput="search_item(event)" type="text" class="ms-4 form-control js-search" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" autofocus>
-			<span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></span>
+		<div></div>
+
+		<div class="input-group mb-3 ">
+			<input onkeyup="check_for_enter_key(event)" oninput="search_item(event)" type="text" class="ms-2 p-2 form-control js-search" placeholder="Enter Barcode" aria-label="Search" aria-describedby="basic-addon1" autofocus>
+			<span class="input-group-text " id="basic-addon1"><i class="fa-solid fa-barcode"></i></i></span>
 		</div>
+		<center>
+			<button class="category-list" type="button" onclick="search_item(event, 'Canned Goods')">
+				<i class="fa-solid fa-box-archive"></i>Canned Goods
+			</button>
+			<button class="category-list" type="button" onclick="search_item(event, 'Condiments & Spices')">
+				<i class="fa-solid fa-mortar-pestle"></i>Condiments & Spices
+			</button>
+			<button class="category-list" type="button" onclick="search_item(event, 'Dairy')">
+				<i class="fa-solid fa-cow"></i>Dairy
+			</button>
+			<button class="category-list" type="button" onclick="search_item(event, 'Snacks')">
+				<i class="fa-solid fa-cookie-bite"></i>Snacks
+				<button class="category-list" type="button" onclick="search_item(event, 'Beverages')">
+					<i class="fa-solid fa-wine-bottle"></i>Beverages
+				</button>
+				<button class="category-list" type="button" onclick="search_item(event, 'Personal Care')">
+					<i class="fa-solid fa-hand-holding-medical"></i>Personal Care
+				</button>
 
+		</center>
 		<div onclick="add_item(event)" class="js-products d-flex text-muted" style="flex-wrap: wrap;height: 90%;overflow-y: scroll;">
 
 
 		</div>
 	</div>
 
-	<div class="col-5 bg-light p-4 pt-2 text-black">
+	<div class="col-4 bg-light p-4 pt-2 text-black">
 
 		<div>
 			<center>
-				<h3>Cart <div class="js-item-count badge bg-primary rounded-circle">0</div>
+				<h3>Cart <div class="js-item-count badge rounded-circle">0</div>
 				</h3>
 			</center>
 		</div>
 
-		<div class="table-responsive" style="height:400px;overflow-y: scroll;">
+		<div class="table-responsive" style="height:500px;overflow-y: scroll;">
 			<table class="table table-striped table-hover">
 				<tr>
 					<th>Image</th>
@@ -57,10 +62,10 @@
 			</table>
 		</div>
 
-		<div class="js-gtotal alert alert-danger" style="font-size:30px">Total: ₱0.00</div>
+		<div class="js-gtotal alert" style="font-size:30px;background-color:#F5CA95;">Total: ₱0.00</div>
 		<div class="">
-			<button onclick="show_modal('amount-paid')" class="btn btn-success my-2 w-100 py-4">Checkout</button>
-			<button onclick="clear_all()" class="btn btn-primary my-2 w-100">Clear All</button>
+			<button onclick="show_modal('amount-paid')" class="check fw-bold my-2 w-100 py-4">Checkout</button>
+			<button onclick="clear_all()" class="clear fw-bold  my-2 py-2 w-100">Clear Cart</button>
 		</div>
 	</div>
 </div>
@@ -70,8 +75,8 @@
 <!--enter amount modal-->
 <div role="close-button" onclick="hide_modal(event,'amount-paid')" class="js-amount-paid-modal hide" style="animation: appear .5s ease;background-color: #000000bb; width: 100%;height: 100%;position: fixed;left:0px;top:0px;z-index: 4;">
 
-	<div style="width:420px;min-height:250px;background-color:#222327;padding:10px;margin:auto;margin-top:100px; border: 2px; border-radius: 15px;">
-		<h4 class="text-white" style="margin-left: 10px;">Select <span style="color: #07afd9;">Payment</span>Method</h4>
+	<div style="width:420px;min-height:250px;background-color:#EB942B;padding:10px;margin:auto;margin-top:300px; border: 2px; border-radius: 15px;">
+		<h4 class="text-dark fw-bold" style="margin-left: 10px;">Select <span style="color: #335500;">Payment</span> Method</h4>
 		<div>
 			<div class="contain">
 				<div class="radio-tile-group">
@@ -92,9 +97,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="button-group">
-					<button role="close-button" onclick="hide_modal(event,'amount-paid')" class="btn btn-dark">Cancel</button>
-					<button onclick="handlePaymentMethodSelection()" class="btn btn-dark">Next</button>
+				<div class="d-grid gap-2 d-md-block">
+					<button role="close-button" onclick="hide_modal(event,'amount-paid')" class="checkout-cancel">Cancel</button>
+					<button onclick="handlePaymentMethodSelection()" class="checkout-next">Next</button>
 				</div>
 			</div>
 		</div>
@@ -109,7 +114,7 @@
 
 	<section class="buo" style="background-color: transparent;">
 		<div class="lagayan">
-			<div class="cards front-face" style="background:url(assets/images/bg.png); background-size: cover;">
+			<div class="cards front-face" style="background:url(assets/images/atm.jpg); background-size: cover; color:black;">
 				<header>
 					<span class="logo">
 						<img src="assets/images/image.png" alt="" />
@@ -119,7 +124,7 @@
 				</header>
 
 				<div class="card-details">
-					<div class="name-number">
+					<div class="name-number fw-bold">
 						<h6>RFID Number</h6>
 						<input style="text-align: center; margin-bottom:15px; width:100%; color:white; background:transparent;" autocomplete="off" name="rfid" class="form-control <?= !empty($errors['rfid']) ? 'border-danger' : '' ?>" placeholder="Tap the RFID" autofocus>
 						<h5 class="name"><?= auth('username') ?></h5>
@@ -130,9 +135,9 @@
 						<h5><?= auth('date') ?></h5>
 					</div>
 				</div>
-				<div class="button-group">
-					<button role="close-button" onclick="hide_modal(event,'rfid-paid')" class="btn btn-dark">Cancel</button>
-					<button onclick=validate_amount_paid(event) class="btn btn-dark float-end">Next</button>
+				<div class="rfid-button d-grid gap-2 d-md-block">
+					<button role="close-button" onclick="hide_modal(event,'rfid-paid')" class="checkout-rfid">Cancel</button>
+					<button onclick=validate_amount_paid(event) class="checkout-next">Next</button>
 				</div>
 			</div>
 
@@ -144,8 +149,8 @@
 <!--enter qr-paid modal-->
 <div role="close-button" onclick="hide_modal(event,'qr-paid')" class="js-qr-paid-modal hide" style="animation: appear .5s ease;background-color: #000000bb; width: 100%;height: 100%;position: fixed;left:0px;top:0px;z-index: 4;">
 
-	<div style="width:500px;min-height:200px;background-color:#222327;padding:10px;margin:auto;margin-top:100px;border: 2px; border-radius: 15px;">
-		<h4 class="text-white">Pay with QR<button role="close-button" onclick="hide_modal(event,'qr-paid')" class="btn btn-danger float-end p-0 px-2">X</button></h4>
+	<div style="width:500px;min-height:200px;background-color:#EB942B;padding:10px;margin:auto;margin-top:100px;border: 2px; border-radius: 15px;">
+		<h4 class="fw-bold" style="color:#335500;">Pay with QR<button role="close-button" onclick="hide_modal(event,'qr-paid')" class="btn btn-danger float-end p-0 px-2">X</button></h4>
 		<input id="num" style="text-align: center;" autocomplete="off" readonly name="unique_num" class="form-control <?= !empty($errors['unique_num']) ? 'border-danger' : '' ?>" placeholder="Scan the QR Code" autofocus>
 		<?php if (!empty($errors['unique_num'])) : ?>
 			<small class="text-danger"><?= $errors['unique_num'] ?></small>
@@ -153,8 +158,11 @@
 		<div>
 			<center><video id="scanner" autoplay style="height: 300px;width:400px"></video></center>
 		</div>
-		<button role="close-button" onclick="hide_modal(event,'qr-paid')" class="btn btn-dark">Cancel</button>
-		<button onclick=validate_amount_paid(event) class="btn btn-dark float-end">Next</button>
+
+		<div class="d-grid gap-2 d-md-block">
+			<button role="close-button" onclick="hide_modal(event,'qr-paid')" class="checkout-qr">Cancel</button>
+			<button onclick=validate_amount_paid(event) class="checkout-next">Next</button>
+		</div>
 	</div>
 </div>
 
@@ -185,16 +193,16 @@
 
 	var main_input = document.querySelector(".js-search");
 
-	function search_item(e) {
-
+	function search_item(e, category) {
 		var text = e.target.value.trim();
-
 		var data = {};
 		data.data_type = "search";
 		data.text = text;
-
+		data.category = category; // Pass the selected category to the server
 		send_data(data);
 	}
+
+
 
 	function send_data(data) {
 		var ajax = new XMLHttpRequest();
@@ -264,7 +272,7 @@
 
 		return `
         <!--card-->
-        <div class="card m-2 border-0 mx-auto" style="min-width: 190px;max-width: 190px;">
+        <div class="card m-2 border-0 mx-auto" style="min-width: 190px;max-width: 190px; height:310px">
             <a href="#">
                 <img index="${index}" src="${data.image}" class="w-100 rounded border">
             </a>

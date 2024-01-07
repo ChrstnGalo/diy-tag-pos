@@ -1,24 +1,22 @@
-<?php 
+<?php
 
 $tab = $_GET['tab'] ?? 'dashboard';
 
 
-if($tab == "products")
-{
+if ($tab == "products") {
 
 	$productClass = new Product();
 	$products = $productClass->query("select * from products order by id desc");
-}else
-if($tab == "sales")
-{
-	
+} else
+if ($tab == "sales") {
+
 	$section = $_GET['s'] ?? 'table';
 	$startdate = $_GET['start'] ?? null;
 	$enddate = $_GET['end'] ?? null;
 
 
 	$saleClass = new Sale();
-	
+
 	$limit = $_GET['limit'] ?? 20;
 	$limit = (int)$limit;
 	$limit = $limit < 1 ? 10 : $limit;
@@ -37,37 +35,33 @@ if($tab == "sales")
 
 
 	//if both start and end are set
- 	if($startdate && $enddate)
- 	{
- 		
- 		$query = "select * from sales where date BETWEEN '$startdate' AND '$enddate' order by id desc limit $limit offset $offset";
- 		$query_total = "select sum(total) as total from sales where date BETWEEN '$startdate' AND '$enddate'";
- 	
- 	}else
+	if ($startdate && $enddate) {
 
-	//if only start date is set
- 	if($startdate && !$enddate)
- 	{
- 		$styear = date("Y",strtotime($startdate));
- 		$stmonth = date("m",strtotime($startdate));
- 		$stday = date("d",strtotime($startdate));
- 		
- 		$query = "select * from sales where date = '$startdate' order by id desc limit $limit offset $offset";
- 		$query_total = "select sum(total) as total from sales where date = '$startdate' ";
- 	}
-	
+		$query = "select * from sales where date BETWEEN '$startdate' AND '$enddate' order by id desc limit $limit offset $offset";
+		$query_total = "select sum(total) as total from sales where date BETWEEN '$startdate' AND '$enddate'";
+	} else
+
+		//if only start date is set
+		if ($startdate && !$enddate) {
+			$styear = date("Y", strtotime($startdate));
+			$stmonth = date("m", strtotime($startdate));
+			$stday = date("d", strtotime($startdate));
+
+			$query = "select * from sales where date = '$startdate' order by id desc limit $limit offset $offset";
+			$query_total = "select sum(total) as total from sales where date = '$startdate' ";
+		}
+
 
 	$sales = $saleClass->query($query);
 
 	$st = $saleClass->query($query_total);
-	
+
 	$sales_total = 0;
-	if($st){
+	if ($st) {
 		$sales_total = $st[0]['total'] ?? 0;
 	}
 
-	if($section == 'graph')
-	{
+	if ($section == 'graph') {
 		//read graph data
 		$db = new Database();
 
@@ -86,12 +80,9 @@ if($tab == "sales")
 		//query this years records
 		$query = "SELECT total,date FROM sales WHERE year(date) = '$thisyear'";
 		$thisyear_records = $db->query($query);
-
 	}
-
-}else
-if($tab == "users")
-{
+} else
+if ($tab == "users") {
 
 	$limit = 10;
 	$pager = new Pager($limit);
@@ -99,10 +90,18 @@ if($tab == "users")
 
 	$userClass = new User();
 	$users = $userClass->query("select * from users order by id desc limit $limit offset $offset");
-}else
-if($tab == "dashboard")
-{
+} else
+if ($tab == "dashboard") {
+	$db = new Database();
 
+	$today = date('Y-m-d');
+	$query = "SELECT sum(total) as daily_sales FROM sales WHERE DATE(date) = '$today'";
+	$today_sales = $db->query($query);
+	$daily_sales = $today_sales[0]['daily_sales'] ?? 0;
+
+	$db = new Database();
+	$query = "SELECT amount, barcode, qty, user_id, description FROM sales ORDER BY id DESC LIMIT 13"; // Adjust the query as needed
+	$recent_sales = $db->query($query);
 	$db = new Database();
 	$query = "select count(id) as total from users";
 
@@ -118,16 +117,11 @@ if($tab == "dashboard")
 
 	$mysales = $db->query($query);
 	$total_sales = $mysales[0]['total'];
-
-	
 }
 
 
-
-if(Auth::access('supervisor')){
+if (Auth::access('supervisor')) {
 	require views_path('admin/admin');
-}else{
-
-	Auth::setMessage("You dont have access to the admin page");
-	require views_path('auth/denied');
+} else {
+	require views_path('home');
 }

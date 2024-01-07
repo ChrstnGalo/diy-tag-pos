@@ -1,7 +1,7 @@
 <?php require views_path('partials/header'); ?>
 <style>
 	body {
-		background: #222327;
+		background: #EB942B;
 		--secondary: #90EE90;
 	}
 

@@ -8,7 +8,7 @@
             }
 
             body {
-                background-image: url("assets/images/login2.gif");
+                background-image: url("assets/images/background1.gif");
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center;
@@ -27,7 +27,7 @@
             .form-box {
                 position: relative;
                 width: 507px;
-                height: 500px;
+                height: 580px;
                 background: transparent;
                 border: 2px solid rgba(255, 255, 255, 0.5);
                 border-radius: 20px;
@@ -141,12 +141,14 @@
                 background-color: transparent;
                 padding: 10px;
                 border-top: 1px solid #ccc;
+                color: white;
+
             }
 
             .key {
                 display: inline-block;
-                width: 30px;
-                height: 30px;
+                width: 60px;
+                height: 50px;
                 margin: 5px;
                 background-color: #222327;
                 cursor: pointer;

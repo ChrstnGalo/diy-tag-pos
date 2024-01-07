@@ -13,7 +13,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         if (!empty($row) && $rfid == $row[0]['rfid'] && $pin_number_rfid == $row[0]['pin_number_rfid']) {
             authenticate($row[0]);
-            redirect('home');
+
+            // Baguhin ang sumusunod na bahagi base sa role ng user
+            if (Auth::access('admin')) {
+                redirect('admin');
+            } else {
+                redirect('home');
+            }
         } else {
             $errors['rfid'] = "RFID and PIN number do not match";
         }
@@ -26,7 +32,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         if (!empty($row) && $unique_num == $row[0]['unique_num'] && $pin_number_qr == $row[0]['pin_number_qr']) {
             authenticate($row[0]);
-            redirect('home');
+            if (Auth::access('admin')) {
+                redirect('admin');
+            } else {
+                redirect('home');
+            }
         } else {
             $errors['unique_num'] = "QR code and PIN number do not match";
         }
