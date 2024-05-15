@@ -38,27 +38,20 @@ if (!empty($_SESSION['referer'])) {
             </div>
 
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                <input value="<?= set_value('email', $row['email']) ?>" name="email" type="email" class="form-control  <?= !empty($errors['email']) ? 'border-danger' : '' ?>" id="exampleFormControlInput1" placeholder="name@example.com">
+                <label for="exampleFormControlInput2" class="form-label">Email address</label>
+                <input value="<?= set_value('email', $row['email']) ?>" name="email" type="email" class="form-control  <?= !empty($errors['email']) ? 'border-danger' : '' ?>" id="exampleFormControlInput2" placeholder="name@example.com">
                 <?php if (!empty($errors['email'])) : ?>
                     <small class="text-danger"><?= $errors['email'] ?></small>
                 <?php endif; ?>
             </div>
 
-            <?php if (Auth::get('role') == "admin") : ?>
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">RFID Number</label>
-                    <input value="<?= set_value('rfid', $row['rfid']) ?>" name="rfid" type="rfid" class="form-control  <?= !empty($errors['rfid']) ? 'border-danger' : '' ?>" id="exampleFormControlInput1" placeholder="Exp: 000123584">
-                    <?php if (!empty($errors['rfid'])) : ?>
-                        <small class="text-danger"><?= $errors['rfid'] ?></small>
-                    <?php endif; ?>
-                </div>
-            <?php else : ?>
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">RFID Number</label>
-                    <input value="********" name="rfid" type="rfid" class="form-control" disabled>
-                </div>
-            <?php endif; ?>
+            <div class="mb-3">
+                <label for="exampleFormControlInput3" class="form-label">RFID Number</label>
+                <input value="<?= set_value('rfid', $row['rfid']) ?>" name="rfid" type="text" class="form-control <?= !empty($errors['rfid']) ? 'border-danger' : '' ?>" id="exampleFormControlInput3" placeholder="RFID Number">
+                <?php if (!empty($errors['rfid'])) : ?>
+                    <small class="text-danger"><?= $errors['rfid'] ?></small>
+                <?php endif; ?>
+            </div>
 
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Gender</label>
@@ -107,10 +100,11 @@ if (!empty($_SESSION['referer'])) {
             </div>
 
             <br>
-            <button class="btn btn-primary float-end">Save</button>
-
             <a href="<?= $back_link ?>">
-                <button type="button" class="btn btn-danger">Cancel</button>
+                <button style="background-color:#335500;color:white;" class="btn float-end">Save</button>
+            </a>
+            <a href="<?= $back_link ?>">
+                <button style="background-color:#8BAE22;color:white;" type="button" class="btn">Cancel</button>
             </a>
 
             <div class="clearfix"></div>
@@ -119,10 +113,19 @@ if (!empty($_SESSION['referer'])) {
         <div class="alert alert-danger text-center">That user was not found!</div>
 
         <a href="<?= $back_link ?>">
+            <button style="background-color:#335500;color:white;" class="btn float-end">Save</button>
+        </a>
+
+        <a href="<?= $back_link ?>">
             <button type="button" class="btn btn-danger">Cancel</button>
         </a>
 
+
+
     <?php endif; ?>
+
+
+
 </div>
 
 <?php require views_path('partials/footer'); ?>

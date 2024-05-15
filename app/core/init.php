@@ -5,6 +5,7 @@ require "../app/core/functions.php";
 require "../app/core/database.php";
 require "../app/core/model.php";
 require '../phpqrcode/qrlib.php';
+require '../vendor/autoload.php';
 
 spl_autoload_register('my_function');
 

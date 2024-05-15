@@ -16,27 +16,29 @@
 					</li>
 				<?php endif; ?>
 
+
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 						Hi, <?= auth('username') ?> (<?= Auth::get('role') ?>)
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<li><a class="dropdown-item" href="index.php?pg=profile">Profile</a></li>
+						<li><a style="width: auto;" class="dropdown-item" href="index.php?pg=profile">Profile</a></li>
 
 						<li>
 							<hr class="dropdown-divider">
 						</li>
-						<li><a class="dropdown-item" href="index.php?pg=logout">Logout</a></li>
+						<li><a style="width: auto;" class="dropdown-item" href="index.php?pg=logout">Logout</a></li>
 					</ul>
 				</li>
 
 
 			</ul>
-			<?php if (Auth::logged_in()) : ?>
+			<?php if (Auth::logged_in() && !Auth::access('admin')) : ?>
 				<div class="nav-item">
 					<a class="nav-link"><i class="fa-solid fa-wallet"></i> Available Balance: <?= (Auth::get('balance') !== "Unknown") ? esc(Auth::get('balance')) : "0" ?></a>
 				</div>
 			<?php endif; ?>
+
 		</div>
 	</div>
 </nav>

@@ -100,7 +100,7 @@ if ($tab == "dashboard") {
 	$daily_sales = $today_sales[0]['daily_sales'] ?? 0;
 
 	$db = new Database();
-	$query = "SELECT amount, barcode, qty, user_id, description FROM sales ORDER BY id DESC LIMIT 13"; // Adjust the query as needed
+	$query = "SELECT amount, barcode, qty, user_id, description FROM sales ORDER BY id DESC LIMIT 10"; // Adjust the query as needed
 	$recent_sales = $db->query($query);
 	$db = new Database();
 	$query = "select count(id) as total from users";
@@ -117,7 +117,32 @@ if ($tab == "dashboard") {
 
 	$mysales = $db->query($query);
 	$total_sales = $mysales[0]['total'];
+
+	// Retrieve today's sales
+	$today = date('Y-m-d');
+	$query = "SELECT sum(total) as daily_sales FROM sales WHERE DATE(date) = '$today'";
+	$today_sales = $db->query($query);
+	$daily_sales = $today_sales[0]['daily_sales'] ?? 0;
+
+	// Retrieve today's records
+	$query_today_records = "SELECT total,date FROM sales WHERE DATE(date) = '$today' ";
+	$today_records = $db->query($query_today_records);
+
+	$thismonth = date('m');
+	$thisyear = date('Y');
+	$query_thismonth_records = "SELECT total,date FROM sales WHERE month(date) = '$thismonth' && year(date) = '$thisyear'";
+	$thismonth_records = $db->query($query_thismonth_records);
+} else
+if ($tab == "category") {
+
+	$categoryClass = new Category();
+	$categories = $categoryClass->query("select * from category order by id asc");
+} else
+if ($tab == "announcement") {
+	$announcementModel = new Announcement();
+	$announcements = $announcementModel->query("SELECT * FROM announcement ORDER BY id DESC");
 }
+
 
 
 if (Auth::access('supervisor')) {

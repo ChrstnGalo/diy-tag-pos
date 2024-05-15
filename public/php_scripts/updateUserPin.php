@@ -1,4 +1,7 @@
 <?php
+
+
+
 // Mag-connect sa database
 $DBHOST = "localhost";
 $DBNAME = "id21357081_pos_db";
@@ -14,7 +17,7 @@ if ($conn->connect_error) {
 }
 
 // Suriin kung mayroong `user_id` at `pin_num` na ipinasa
-if(isset($_POST['user_id']) && isset($_POST['pin_num'])) {
+if (isset($_POST['user_id']) && isset($_POST['pin_num'])) {
     $userId = $_POST['user_id'];
     $pinNum = $_POST['pin_num'];
 
@@ -33,4 +36,3 @@ if(isset($_POST['user_id']) && isset($_POST['pin_num'])) {
 }
 
 $conn->close();
-?>

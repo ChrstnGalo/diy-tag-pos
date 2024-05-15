@@ -1,5 +1,6 @@
 <?php
-
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -9,15 +10,23 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$_POST['user_id'] = auth("id");
 	$_POST['barcode'] = empty($_POST['barcode']) ? $product->generate_barcode() : $_POST['barcode'];
 
+	// Kung sa pag update naman ng quantity:
 	if (!empty($_FILES['image']['name'])) {
 		$_POST['image'] = $_FILES['image'];
 	}
+	$categoryModel = new Category();
+	$categories = $categoryModel->getAll();
+
 
 	// Calculate discounted price
 	$amount = floatval($_POST['amount']);
 	$discount = !empty($_POST['discount']) ? floatval($_POST['discount']) : 0;
 	$_POST['discounted_price'] = $amount - $discount;
 
+	// Generate barcode image
+	$barcode_image_path = generateBarcodeImage($_POST['barcode']);
+
+	$_POST['barcode_img'] = $barcode_image_path;
 	$errors = $product->validate($_POST);
 
 	if (empty($errors)) {

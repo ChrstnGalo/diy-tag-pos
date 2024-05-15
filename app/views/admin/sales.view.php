@@ -58,6 +58,7 @@
 					<th>Total</th>
 					<th>Username</th>
 					<th>Date</th>
+					<th>Action</th>
 					<th>
 						<a href="index.php?pg=home">
 							<button style="background-color:#335500" class="btn text-white btn-sm"><i class="fa fa-plus"></i> Add new</button>

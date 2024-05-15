@@ -1,5 +1,10 @@
 <?php
 // Mag-connect sa database
+
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: *");
+
 $DBHOST = "localhost";
 $DBNAME = "id21357081_pos_db";
 $DBUSER = "id21357081_root";
@@ -14,7 +19,7 @@ if ($conn->connect_error) {
 }
 
 // Query para kunin ang mga record na may hindi 0 na halaga sa field ng discount
-$sql = "SELECT description, qty, amount, image, discounted_price FROM products WHERE discount <> 0";
+$sql = "SELECT description, qty, amount, image, discounted_price, prod_code, barcode FROM products WHERE discount <> 0";
 
 $result = $conn->query($sql);
 
@@ -36,4 +41,3 @@ if ($result->num_rows > 0) {
 
 // Isara ang koneksyon sa database
 $conn->close();
-?>

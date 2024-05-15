@@ -1,6 +1,7 @@
 <?php
 
-
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 /**
  * products class
  */
@@ -12,9 +13,11 @@ class Product extends Model
 	protected $allowed_columns = [
 
 		'barcode',
+		'barcode_img',
 		'user_id',
 		'description',
 		'category',
+		'prod_code',
 		'qty',
 		'amount',
 		'discount',

@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $qr_image_path = $tempDir . $unique_num . '.png';
         $user->updateQrImagePath($qr_image_path, $unique_num); // Update the QR code path in the database
 
-        redirect('home');
+        redirect('admin');
     }
 }
 

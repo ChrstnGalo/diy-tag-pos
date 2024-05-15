@@ -295,3 +295,13 @@ function generate_yearly_data($records)
 
 	return $arr;
 }
+
+function generateBarcodeImage($barcode)
+{
+	// Generate barcode image
+	$barcodeGenerator = new Picqer\Barcode\BarcodeGeneratorPNG();
+	$barcode_image_path = 'assets/barcode_img/' . $barcode . '.png';
+	file_put_contents($barcode_image_path, $barcodeGenerator->getBarcode($barcode, $barcodeGenerator::TYPE_CODE_128));
+
+	return $barcode_image_path;
+}

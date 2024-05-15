@@ -7,6 +7,10 @@ $product = new Product();
 
 $row = $product->first(['id' => $id]);
 
+// Load categories from the database
+$categoryModel = new Category();
+$categories = $categoryModel->getAll();
+
 if ($_SERVER['REQUEST_METHOD'] == "POST" && $row) {
 
 	$_POST['barcode'] = empty($_POST['barcode']) ? $product->generate_barcode() : $_POST['barcode'];

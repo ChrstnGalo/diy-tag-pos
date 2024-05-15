@@ -19,49 +19,71 @@
 		</div>
 	</div>
 	<div class="container-fluid px-4">
-		<div class="row g-3 my-2">
-			<div class="col-md-3">
-				<div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-					<div>
-						<h3 class="fs-2"><?= $total_products ?></h3>
-						<p class="fs-5">Products</p>
-					</div>
-					<i class="fas fa-gift fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+		<div class="main-cards">
+
+			<div class="card1">
+				<div class="card1-inner">
+					<p class="text-primary">PRODUCTS</p>
+					<span class="material-icons-outlined text-blue">inventory_2</span>
 				</div>
+				<span class="text-primary font-weight-bold"><?= $total_products ?></span>
 			</div>
 
-			<div class="col-md-3">
-				<div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-					<div>
-						<h3 class="fs-2"><?= $total_sales ?></h3>
-						<p class="fs-5">Sales</p>
-					</div>
-					<i class="fas fa-hand-holding-usd fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+			<div class="card1">
+				<div class="card1-inner">
+					<p class="text-primary">TOTAL SALES</p>
+					<span class="material-icons-outlined text-orange">add_shopping_cart</span>
 				</div>
+				<span class="text-primary font-weight-bold">₱<?= $total_sales ?></span>
 			</div>
 
-			<div class="col-md-3">
-				<div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-					<div>
-						<h3 class="fs-2"><?= $total_users ?></h3>
-						<p class="fs-5">Total User</p>
-					</div>
-					<i class="fas fa-user fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-
+			<div class="card1">
+				<div class="card1-inner">
+					<p class="text-primary">TOTAL USERS</p>
+					<span class="material-icons-outlined text-green">shopping_cart</span>
 				</div>
+				<span class="text-primary font-weight-bold"><?= $total_users ?></span>
 			</div>
 
-			<div class="col-md-3">
-				<div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-					<div>
-						<h3 class="fs-2"><?= $daily_sales ?></h3>
-						<p class="fs-5">Daily Sales</p>
-					</div>
-					<i class="fas fa-chart-line fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+			<div class="card1">
+				<div class="card1-inner">
+					<p class="text-primary">Daily Sales</p>
+					<span class="material-icons-outlined text-red">notification_important</span>
 				</div>
+				<span class="text-primary font-weight-bold">₱<?= $daily_sales ?></span>
 			</div>
-
 		</div>
+
+		<?php if ($tab == "dashboard") : ?>
+
+			<!-- Dito ay ang iba pang elements ng dashboard -->
+
+			<div class="charts">
+				<div class="charts-card">
+					<p class="fs-2">Today's Sales</p>
+					<?php
+					$graph = new Graph();
+					$data = generate_daily_data($today_records);
+					$graph->title = "Today's Sales";
+					$graph->xtitle = "Hours of the day";
+					$graph->styles = "width:auto;";
+					$graph->display($data);
+					?>
+				</div>
+
+				<div class="charts-card">
+					<p class="fs-2">Month's Sales</p>
+					<?php
+					$graph = new Graph();
+					$data = generate_monthly_data($thismonth_records);
+					$graph->xtitle = "Days of the month";
+					$graph->styles = "width:auto;";
+					$graph->display($data);
+					?>
+				</div>
+			</div>
+
+		<?php endif; ?>
 
 		<div class="row my-5">
 			<h3 class="fs-4 mb-3">Recent Orders</h3>
@@ -107,12 +129,3 @@
 			</div>
 		</div>
 	</div>
-
-	<script>
-		var el = document.getElementById("wrapper");
-		var toggleButton = document.getElementById("menu-toggle");
-
-		toggleButton.onclick = function() {
-			el.classList.toggle("toggled");
-		};
-	</script>

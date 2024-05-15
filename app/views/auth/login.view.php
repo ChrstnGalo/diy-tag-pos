@@ -174,16 +174,16 @@
                     </center>
                     <br>
                     <form id="rfid" method="post" class="input-group">
-                        <input style="text-align: center;" autocomplete="off" name="rfid" type="text" class="form-control my-2 w-100 py-2 <?= !empty($errors['rfid']) ? 'border-danger' : '' ?>" placeholder="Enter RFID" autofocus>
                         <input style="text-align: center;" autocomplete="off" name="pin_number_rfid" type="password" class="form-control <?= !empty($errors['rfid']) ? 'border-danger' : '' ?>" placeholder="Enter PIN" onclick="toggleKeypad()" autofocus>
+                        <input style="text-align: center;" autocomplete="off" name="rfid" type="text" class="form-control my-2 w-100 py-2 <?= !empty($errors['rfid']) ? 'border-danger' : '' ?>" placeholder="Enter RFID" autofocus>
                         <?php if (!empty($errors['rfid'])) : ?>
                             <small class="text-danger"><?= $errors['rfid'] ?></small>
                         <?php endif; ?>
                         <button type="submit" class="btn btn-dark my-2 w-100 py-2">Enter</button>
                     </form>
                     <form id="unique_num" method="post" class="input-group">
-                        <input id="num" style="text-align: center;" autocomplete="off" name="unique_num" class="form-control my-2 w-100 py-2 <?= !empty($errors['unique_num']) ? 'border-danger' : '' ?>" placeholder="Scan QR" autofocus>
                         <input style="text-align: center;" autocomplete="off" name="pin_number_qr" type="password" class="form-control <?= !empty($errors['unique_num']) ? 'border-danger' : '' ?>" placeholder="Enter PIN" onclick="toggleKeypad()" autofocus>
+                        <input id="num" style="text-align: center;" autocomplete="off" readonly name="unique_num" class="form-control my-2 w-100 py-2 <?= !empty($errors['unique_num']) ? 'border-danger' : '' ?>" placeholder="Scan QR" autofocus>
                         <?php if (!empty($errors['unique_num'])) : ?>
                             <small class="text-danger"><?= $errors['unique_num'] ?></small>
                         <?php endif; ?>

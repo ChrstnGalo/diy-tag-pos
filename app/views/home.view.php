@@ -1,4 +1,10 @@
+<?php
+$categoryModel = new Category();
+$categories = $categoryModel->getAll(); // Fetch all categories from the database
+?>
+
 <?php require views_path('partials/header'); ?>
+
 
 <div class="d-flex">
 	<div style="min-height:600px;" class="shadow-sm col-8 p-4">
@@ -9,14 +15,11 @@
 			<input onkeyup="check_for_enter_key(event)" oninput="search_item(event)" type="text" class="ms-2 p-2 form-control js-search" placeholder="Enter Barcode" aria-label="Search" aria-describedby="basic-addon1" autofocus>
 			<span class="input-group-text " id="basic-addon1"><i class="fa-solid fa-barcode"></i></i></span>
 		</div>
-		<center>
-			<button class="category-list" type="button" onclick="filterProducts('Canned Goods')"><i class="fa-solid fa-box-archive"></i>Canned Goods</button>
-			<button class="category-list" type="button" onclick="filterProducts('Condiments & Spices')"><i class="fa-solid fa-mortar-pestle"></i>Condiments & Spices</button>
-			<button class="category-list" type="button" onclick="filterProducts('Dairy')"><i class="fa-solid fa-egg"></i>Dairy</button>
-			<button class="category-list" type="button" onclick="filterProducts('Snacks')"><i class="fa-solid fa-cookie-bite"></i>Snacks</button>
-			<button class="category-list" type="button" onclick="filterProducts('Beverages')"><i class="fa-solid fa-wine-bottle"></i>Beverages</button>
-			<button class="category-list" type="button" onclick="filterProducts('Personal Care')"><i class="fa-solid fa-hand-holding-medical"></i>Personal Care</button>
-		</center>
+		<?php foreach ($categories as $category) : ?>
+			<button class="category-list" type="button" onclick="filterProducts('<?php echo $category['category_name']; ?>')">
+				<?php echo $category['category_name']; ?>
+			</button>
+		<?php endforeach; ?>
 		<div onclick="add_item(event)" class="js-products d-flex text-muted" style="flex-wrap: wrap;height: 90%;overflow-y: scroll;">
 
 

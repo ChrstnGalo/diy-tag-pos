@@ -1,9 +1,13 @@
 <?php
 // Mag-connect sa database
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: *");
+
 $DBHOST = "localhost";
 $DBNAME = "id21357081_pos_db";
-$DBUSER = "id21357081_root";
-$DBPASS = "Galo123456789@@";
+$DBUSER = "root";
+$DBPASS = "";
 $DBDRIVER = "mysql";
 
 $conn = new mysqli($DBHOST, $DBUSER, $DBPASS, $DBNAME);
@@ -13,11 +17,11 @@ if ($conn->connect_error) {
 }
 
 // Kumonekta sa database at kumuha ng mga users
-$result = $conn->query("SELECT id, email, password, username, date, role, image, gender, balance, qr_image FROM users");
+$result = $conn->query("SELECT id, unique_num, balance, rfid, qr_code, date, role, image, email, username, password, fname, mname, lname, contact, address, status, deletable FROM users");
 
 if ($result->num_rows > 0) {
     // I-iterate ang result at ilagay sa isang array
-    while($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch_assoc()) {
         $users[] = $row;
     }
 } else {
@@ -30,4 +34,3 @@ echo json_encode($users);
 
 // Isara ang koneksyon
 $conn->close();
-?>

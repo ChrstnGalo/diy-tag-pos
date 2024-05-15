@@ -10,6 +10,11 @@ class User extends Model
 	protected $table = "users";
 	protected $allowed_columns = [
 
+		'fname',
+		'lname',
+		'mname',
+		'contact',
+		'address',
 		'username',
 		'email',
 		'rfid',

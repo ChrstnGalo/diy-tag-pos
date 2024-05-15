@@ -19,6 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		}
 	}
 
+	if (isset($_POST['rfid'])) {
+		$user->update($id, ['rfid' => $_POST['rfid']]);
+	}
+
 	if (!empty($_FILES['image']['name'])) {
 		$_POST['image'] = $_FILES['image'];
 	}
@@ -54,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 		$user->update($id, $_POST);
 
-		redirect("edit-user&id=$id");
+		redirect("admin&tab=users");
 	}
 }
 

@@ -1,5 +1,10 @@
 <?php
 // Mag-connect sa database
+
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: *");
+
 $DBHOST = "localhost";
 $DBNAME = "id21357081_pos_db";
 $DBUSER = "id21357081_root";
@@ -10,11 +15,11 @@ $conn = new mysqli($DBHOST, $DBUSER, $DBPASS, $DBNAME);
 
 // Check connection
 if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error);
 }
 
 // Query para kunin ang mga record na may discount na equal sa 0
-$sql = "SELECT description, qty, amount, image FROM products WHERE discount = 0";
+$sql = "SELECT description, qty, amount, image, prod_code, barcode FROM products WHERE discounted_price = 0";
 
 $result = $conn->query($sql);
 
@@ -28,7 +33,9 @@ if ($result->num_rows > 0) {
             'description' => $row['description'],
             'qty' => $row['qty'],
             'amount' => $row['amount'],
-            'image' => $row['image']
+            'image' => $row['image'],
+            'barcode' => $row['barcode'],
+            'prod_code' => $row['prod_code'],
         );
 
         // Idagdag ang bawat detalye ng produkto sa response array
@@ -44,4 +51,3 @@ if ($result->num_rows > 0) {
 
 // Isara ang koneksyon sa database
 $conn->close();
-?>
